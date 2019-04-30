@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header="Sistemas">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Gerência:" />
+						<p:selectOneMenu converter="convGerencia"
+							value="#{sistemaController.gerencia}" id="gerencia">
+							<f:selectItem itemValue="" itemLabel="Selecione..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{gerenciaController.todas}" var="g"
+								itemLabel="#{g.sigla}" itemValue="#{g}" />
+							<p:ajax
+								listener="#{sistemaController.updateComboCoordenadoria()}"
+								update="coordenadoria" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Coordenadoria:" />
+						<p:selectOneMenu
+							value="#{sistemaController.sistema.coordenadoria}"
+							converter="convCoordenadoria" id="coordenadoria">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{sistemaController.coords}" var="c"
+								itemLabel="#{c.sigla}" itemValue="#{c}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" size="60" maxlength="255"
+							value="#{sistemaController.sistema.nome}" />
+
+						<p:outputLabel value="Descrição:" />
+						<p:inputTextarea id="descricao" maxlength="255" cols="60"
+							label="20" value="#{sistemaController.sistema.descricao}" />
+
+
+
+
+
+					</p:panelGrid>
+					<p:commandButton value="Cadastrar"
+						action="#{sistemaController.adicionar}"
+						update="gridFormulario,dataCoordenadoria" ajax="true" />
+					<p:commandButton value="Limpar"
+						action="#{sistemaController.limpar()}" ajax="true"
+						update="gridFormulario" />
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+				<br />
+				<p:dataTable id="dataCoordenadoria"
+					value="#{sistemaController.todas}" paginatorPosition="bottom"
+					editable="true" var="s" border="1" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,50"
+					rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					rowIndexVar="rowIx">
+					<p:column headerText="Coordenadoria">
+						<h:outputText value="#{s.coordenadoria.sigla}" />
+					</p:column>
+
+					<p:column headerText="Nome">
+						<h:outputText value="#{s.nome}" />
+					</p:column>
+
+					<p:column headerText="Descrição">
+						<h:outputText value="#{s.descricao}" />
+					</p:column>
+
+					<p:column width="10%" headerText="Operações">
+
+						<p:commandButton id="linkEdit" immediate="true"
+							alt="Editar Registro" title="Editar Registro"
+							action="#{sistemaController.editar}" icon="ui-icon-pencil"
+							ajax="false">
+							<f:setPropertyActionListener value="#{s}"
+								target="#{sistemaController.sistema}" />
+						</p:commandButton>
+						|
+						<p:commandButton id="linkRemove" icon="ui-icon-trash"
+							immediate="true" alt="Remover Registro" title="Remover Registro"
+							action="#{sistemaController.remove}" update="dataCoordenadoria">
+							<f:setPropertyActionListener value="#{s}"
+								target="#{sistemaController.sistema}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

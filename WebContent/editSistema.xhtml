@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header=" Alterar Sistemas">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Gerência:" />
+						<p:selectOneMenu converter="convGerencia"
+							value="#{sistemaController.gerencia}" id="gerencia">
+							<f:selectItem itemValue="" itemLabel="Selecione..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{gerenciaController.todas}" var="g"
+								itemLabel="#{g.sigla}" itemValue="#{g}" />
+							<p:ajax
+								listener="#{sistemaController.updateComboCoordenadoria()}"
+								update="coordenadoria" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel value="Coordenadoria:" />
+						<p:selectOneMenu
+							value="#{sistemaController.sistema.coordenadoria}"
+							converter="convCoordenadoria" id="coordenadoria">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{sistemaController.coords}" var="c"
+								itemLabel="#{c.sigla}" itemValue="#{c}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{sistemaController.sistema.nome}"
+							size="60" maxlength="255" />
+
+						<p:outputLabel value="Descrição:" />
+						<p:inputTextarea id="descricao" maxlength="255" cols="60"
+							label="20" value="#{sistemaController.sistema.descricao}" />
+
+
+
+
+					</p:panelGrid>
+					<p:commandButton value="Alterar"
+						action="#{sistemaController.update}" ajax="false" />
+					<p:commandButton value="Cancelar"
+						action="#{sistemaController.cancela()}" ajax="false" />
+
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+				<br />
+
+
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

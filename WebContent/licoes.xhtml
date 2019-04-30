@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header="Erros Conhecidos">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Sistema:" />
+						<p:selectOneMenu
+							value="#{licoesAprendidasController.licoes.sistema}"
+							converter="convSistema">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{licoesAprendidasController.sistemas}"
+								var="s" itemLabel="#{s.nome}" itemValue="#{s}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Serviço:" />
+						<p:selectOneMenu value="#{licoesAprendidasController.tpServico}"
+							id="servico" converter="convTipoServico">
+							<f:selectItem itemValue="" itemLabel="Selecione..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{tipoServicoController.todas}" var="t"
+								itemLabel="#{t.nome}" itemValue="#{t}" />
+							<p:ajax
+								listener="#{licoesAprendidasController.updateComboServico()}"
+								update="tpServico" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Tipo de Serviço:" />
+						<p:selectOneMenu
+							value="#{licoesAprendidasController.licoes.servico}"
+							id="tpServico" converter="convServico">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{licoesAprendidasController.services}"
+								var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Assunto:" />
+						<p:inputText id="assunto" size="60" maxlength="255"
+							value="#{licoesAprendidasController.licoes.assunto}" />
+
+						<p:outputLabel value="Problema relatado:" />
+						<p:inputTextarea id="problema" maxlength="255" cols="60"
+							label="20"
+							value="#{licoesAprendidasController.licoes.problemaRelatado}"
+							autoResize="true" />
+
+
+						<p:outputLabel value="Número Incidente:" />
+						<p:inputText id="incidente"
+							value="#{licoesAprendidasController.licoes.numeroIncidente}" />
+
+						<p:outputLabel value="Solução Contorno:" />
+						<p:inputTextarea id="contorno" maxlength="255" cols="60"
+							label="20"
+							value="#{licoesAprendidasController.licoes.solucaoContorno}"
+							autoResize="true" />
+
+
+						<p:outputLabel value="Solução Raiz:" />
+						<p:inputTextarea id="raiz" maxlength="255" cols="60" label="20"
+							value="#{licoesAprendidasController.licoes.solucaoRaiz}"
+							autoResize="true" />
+
+
+						<p:outputLabel value="Número Problema:" />
+						<p:inputText id="numproblema"
+							value="#{licoesAprendidasController.licoes.numeroProblema}" />
+
+						<p:outputLabel value="Anexo:" for="anexo" />
+						<p:fileUpload id="anexo"
+							fileUploadListener="#{licoesAprendidasController.upload}"
+							mode="advanced" dragDropSupport="true" sizeLimit="100000" />
+
+
+					</p:panelGrid>
+					<p:commandButton value="Cadastrar"
+						actionListener="#{licoesAprendidasController.adicionar}"
+						update="gridFormulario,dataCoordenadoria" />
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+				<br />
+				<p:dataTable id="dataCoordenadoria"
+					value="#{licoesAprendidasController.todas}"
+					paginatorPosition="bottom" editable="true" var="l" border="1"
+					paginator="true" rows="10" widgetVar="licoesTable"
+					filteredValue="#{licoesAprendidasController.filteredLicoes}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,50"
+					rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+					rowIndexVar="rowIx">
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Search all fields:" />
+							<p:inputText id="globalFilter"
+								onchange="PF('licoesTable').filter()" style="width:150px"
+								placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
+					<p:rowExpansion>
+						<p:panelGrid columns="2">
+							<p:column>
+								<h:outputText value="Anexo:" style="font-weight: bold;"/>
+							</p:column>
+							<p:column>
+								<h:commandLink action="#{licoesAprendidasController.anexo()}" value="#{l.anexo}" />
+								
+							</p:column>
+								
+								
+						</p:panelGrid>
+					
+					</p:rowExpansion>
+
+					<p:column headerText="Sistema" filterBy="#{l.sistema.nome}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.sistema.nome}" />
+					</p:column>
+
+					<p:column headerText="Assunto" filterBy="#{l.assunto}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.assunto}" />
+					</p:column>
+
+					<p:column headerText="Incidente" filterBy="#{l.numeroIncidente}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.numeroIncidente}" />
+					</p:column>
+
+
+					<p:column headerText="Contorno" filterBy="#{l.solucaoContorno}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.solucaoContorno}" />
+					</p:column>
+
+					<p:column headerText="Raiz" filterBy="#{l.solucaoRaiz}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.solucaoRaiz}" />
+					</p:column>
+
+					<p:column headerText="Serviço"
+						filterBy="#{l.servico.tipoServico.nome}"
+						filterStyle="display:none; visibility: hidden;">
+						<h:outputText value="#{l.servico.tipoServico.nome}" />
+					</p:column>
+
+					<p:column width="10%" headerText="Operações">
+
+						<p:commandButton id="linkEdit" immediate="true"
+							alt="Editar Registro" title="Editar Registro"
+							action="#{licoesAprendidasController.editar}"
+							icon="ui-icon-pencil">
+							<f:setPropertyActionListener value="#{l}"
+								target="#{licoesAprendidasController.licoes}" />
+						</p:commandButton>
+						|
+						<p:commandButton id="linkRemove" icon="ui-icon-trash"
+							immediate="true" alt="Remover Registro" title="Remover Registro"
+							action="#{licoesAprendidasController.remove}"
+							update="dataCoordenadoria">
+							<f:setPropertyActionListener value="#{l}"
+								target="#{licoesAprendidasController.licoes}" />
+						</p:commandButton>
+					</p:column>
+					
+
+				</p:dataTable>
+
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

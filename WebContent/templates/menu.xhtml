@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<f:view>
+		<h:form id="menu">
+			<div id="menu">
+
+				<p:menubar>
+
+					<p:menuitem value="Principal" url="index.jsf" />
+					<p:submenu label="Basico">
+						<p:menuitem value="Gerência" url="gerencia.jsf" />
+						<p:menuitem value="Coordenadoria" url="coordenadoria.jsf" />
+						<p:menuitem value="Sistema" url="sistemas.jsf" />
+						<p:menuitem value="Tipo Serviço" url="tpservico.jsf" />
+						<p:menuitem value="Serviço" url="servico.jsf" />
+					</p:submenu>
+					
+					
+					<p:menuitem value="Erros Conhecidos" url="licoes.jsf" />
+					
+					<p:submenu label="Relatorios">
+						<p:menuitem value="Gerencial"/>
+					</p:submenu>
+					
+					<p:submenu label="Segurança">
+						<p:menuitem value="Usuário" />
+						
+
+					</p:submenu>
+
+
+
+				</p:menubar>
+
+
+
+
+
+
+			</div>
+		</h:form>
+
+	</f:view>
+</h:body>
+</html>

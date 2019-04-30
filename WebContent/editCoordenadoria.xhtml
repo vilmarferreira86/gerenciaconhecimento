@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header="Coordenadorias">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Gerência:" />
+						<p:selectOneMenu value="#{coordenadoriaController.coord.gerencia}"
+							converter="convGerencia">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{coordenadoriaController.gerencias}"
+								var="g" itemLabel="#{g.sigla}" itemValue="#{g}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Sigla:" />
+						<p:inputText id="sigla"
+							value="#{coordenadoriaController.coord.sigla}" />
+
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" size="60" maxlength="255"
+							value="#{coordenadoriaController.coord.nome}" />
+
+						<p:outputLabel value="Situação:" />
+						<p:selectBooleanCheckbox id="situacao"
+							value="#{coordenadoriaController.coord.situacao}" />
+
+
+
+
+
+
+
+					</p:panelGrid>
+					<p:commandButton value="Alterar"
+						action="#{coordenadoriaController.update}" ajax="false" />
+					<p:commandButton value="Cancelar"
+						action="#{coordenadoriaController.cancela()}" ajax="false" />
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

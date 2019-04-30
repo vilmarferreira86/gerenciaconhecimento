@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header="Serviços">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Tipo de Serviço:" />
+						<p:selectOneMenu value="#{servicoController.servico.tipoServico}"
+							converter="convTipoServico">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{servicoController.tiposervicos}" var="t"
+								itemLabel="#{t.nome}" itemValue="#{t}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Descrição:" />
+						<p:inputTextarea id="descricao" maxlength="255" cols="60"
+							label="20" value="#{servicoController.servico.descricao}" />
+
+
+
+
+					</p:panelGrid>
+					<p:commandButton value="Alterar"
+						action="#{servicoController.update}" ajax="false" />
+					<p:commandButton value="Cancelar"
+						action="#{servicoController.cancela()}" ajax="false" />
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+
+
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

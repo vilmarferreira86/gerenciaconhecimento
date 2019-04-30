@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="configuracaoPU"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>br.ufpa.configuracoes.model.Coordenadoria</class>
+		<class>br.ufpa.configuracoes.model.Gerencia</class>
+		<class>br.ufpa.configuracoes.model.LicoesAprendida</class>
+		<class>br.ufpa.configuracoes.model.Servico</class>
+		<class>br.ufpa.configuracoes.model.Sistema</class>
+		<class>br.ufpa.configuracoes.model.TipoServico</class>
+		<class>br.ufpa.configuracoes.model.Usuario</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/licoes?serverTimezone=America/Belem" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="123" />
+			<property name="javax.persistence.jdbc.driver"
+				value="com.mysql.jdbc.Driver" />
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property
+				name="javax.persistence.schema-generation.database.action"
+				value="update" />
+		</properties>
+	</persistence-unit>
+</persistence>

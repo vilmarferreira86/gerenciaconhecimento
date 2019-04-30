@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Sistema de Gerencia de Configurações</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+
+		<DIV id="main">
+			<h:form id="form">
+				<p:panel header="Alterar Erros Conhecidos">
+					<p:panelGrid columns="2" id="gridFormulario">
+
+						<p:outputLabel value="Sistema:" />
+						<h:outputText
+							value="#{licoesAprendidasController.licoes.sistema.nome}" />
+
+						<p:outputLabel value="Serviço:" />
+						<h:outputText
+							value="#{licoesAprendidasController.licoes.servico.descricao}" />
+
+						<p:outputLabel value="Assunto:" />
+						<h:inputText id="assunto"
+							value="#{licoesAprendidasController.licoes.assunto}" />
+
+						<p:outputLabel value="Problema relatado:" />
+						<h:inputTextarea id="problema"
+							value="#{licoesAprendidasController.licoes.problemaRelatado}" />
+
+						<p:outputLabel value="Número Incidente:" />
+						<h:inputText id="incidente"
+							value="#{licoesAprendidasController.licoes.numeroIncidente}" />
+
+						<p:outputLabel value="Solução Contorno:" />
+						<h:inputTextarea id="contorno"
+							value="#{licoesAprendidasController.licoes.solucaoContorno}" />
+
+						<p:outputLabel value="Solução Raiz:" />
+						<h:inputTextarea id="raiz"
+							value="#{licoesAprendidasController.licoes.solucaoRaiz}" />
+
+						<p:outputLabel value="Número Problema:" />
+						<h:inputText id="numproblema"
+							value="#{licoesAprendidasController.licoes.numeroProblema}" />
+
+
+
+					</p:panelGrid>
+
+					<p:commandButton value="Alterar"
+						action="#{licoesAprendidasController.update}" ajax="false" />
+					<p:commandButton value="Cancelar"
+						action="#{licoesAprendidasController.cancela}" ajax="false" />
+				</p:panel>
+				<p:messages id="mensagem" autoUpdate="true" />
+
+
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+
+</h:body>
+</html>

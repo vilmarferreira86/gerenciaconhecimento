@@ -1,0 +1,78 @@
+@CHARSET "ISO-8859-1";
+html, body{
+	font-family: arial;
+	font-size: 12px;
+}
+
+#geral {
+	width: 90%;
+	margin-right: auto;
+	margin-left: auto;	
+}
+
+#rodape{
+	background-color: #0174DF;
+	height: 30%;
+	padding: 20px;
+	color: white;
+	
+}
+.label{
+	font-weight: bold;
+	width:8%;
+	background-color:#fafaf4;
+	border:1px solid #fafaf4;
+	text-align: right;
+	padding:5px;
+}
+.label2{
+	font-weight: bold;
+	width:15%;
+	background-color:#fafaf4;
+	border:1px solid #fafaf4;
+	text-align: right;
+	padding:5px;
+}
+.label3{
+	font-weight: bold;
+	width:08%;
+	background-color:#fafaf4;
+	border:1px solid #fafaf4;
+	text-align: right;
+	padding:5px;
+}
+.label4{
+	font-weight: bold;
+	width: 5%;
+	background-color:#fafaf4;
+	border:1px solid #fafaf4;
+	text-align: right;
+	padding:5px;
+}
+.value{
+	text-align: left;
+	background-color:#fafaf4;
+	padding:5px;
+	border:1px solid #fafaf4;
+}
+.ui-datatable .ui-datatable-data .even-row td{
+			background-color:#FFFFF0;
+		}
+		.ui-datatable .ui-datatable-data .odd-row td{
+			background-color:#98FB98;
+		}
+.output{
+	font-weight:bold;
+	
+}
+
+#appearance-select{
+   -webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+   -moz-appearance: none; /* Remove estilo padrão do FireFox */
+   appearance: none; /* Remove estilo padrão do FireFox*/
+   background: url(http://www.webcis.com.br/images/imagens-noticias/select/ico-seta-appearance.gif) no-repeat #eeeeee;  /* Imagem de fundo (Seta) */
+   background-position: 218px center;  /*Posição da imagem do background*/
+   width: 250px; /* Tamanho do select, maior que o tamanho da div "div-select" */
+   height:30px; /* Altura do select, importante para que tenha a mesma altura em todo os navegadores */
+   border:1px solid #ddd;
+}
