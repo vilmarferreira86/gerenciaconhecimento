@@ -1,5 +1,6 @@
 package br.ufpa.configuracoes.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import br.ufpa.configuracoes.controller.JpaUtil;
+import br.ufpa.configuracoes.model.Servico;
 import br.ufpa.configuracoes.model.Sistema;
 import br.ufpa.configuracoes.model.TipoServico;
 
@@ -82,4 +84,6 @@ public class TipoServicoDao {
 				System.out.println("Erro ao remover ->" + e.getMessage());
 			}
 		}
+		
+	
 }

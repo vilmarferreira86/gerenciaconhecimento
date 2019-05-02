@@ -21,35 +21,65 @@
 					<p:panelGrid columns="2" id="gridFormulario">
 
 						<p:outputLabel value="Sistema:" />
-						<h:outputText
-							value="#{licoesAprendidasController.licoes.sistema.nome}" />
+						<p:selectOneMenu
+							value="#{licoesAprendidasController.licoes.sistema}"
+							converter="convSistema">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{licoesAprendidasController.sistemas}"
+								var="s" itemLabel="#{s.nome}" itemValue="#{s}" />
+						</p:selectOneMenu>
 
 						<p:outputLabel value="Serviço:" />
-						<h:outputText
-							value="#{licoesAprendidasController.licoes.servico.descricao}" />
+						<p:selectOneMenu value="#{licoesAprendidasController.tpServico}"
+							id="servico" converter="convTipoServico">
+							<f:selectItem itemValue="" itemLabel="Selecione..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{tipoServicoController.todas}" var="t"
+								itemLabel="#{t.nome}" itemValue="#{t}" />
+							<p:ajax
+								listener="#{licoesAprendidasController.updateComboServico()}"
+								update="tpServico" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Tipo de Serviço:" />
+						<p:selectOneMenu
+							value="#{licoesAprendidasController.licoes.servico}"
+							id="tpServico" converter="convServico">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{licoesAprendidasController.services}"
+								var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
+						</p:selectOneMenu>
 
 						<p:outputLabel value="Assunto:" />
-						<h:inputText id="assunto"
+						<p:inputText id="assunto" size="60" maxlength="255"
 							value="#{licoesAprendidasController.licoes.assunto}" />
 
 						<p:outputLabel value="Problema relatado:" />
-						<h:inputTextarea id="problema"
-							value="#{licoesAprendidasController.licoes.problemaRelatado}" />
+						<p:inputTextarea id="problema" maxlength="255" cols="60"
+							label="20"
+							value="#{licoesAprendidasController.licoes.problemaRelatado}"
+							autoResize="true" />
+
 
 						<p:outputLabel value="Número Incidente:" />
-						<h:inputText id="incidente"
+						<p:inputText id="incidente"
 							value="#{licoesAprendidasController.licoes.numeroIncidente}" />
 
 						<p:outputLabel value="Solução Contorno:" />
-						<h:inputTextarea id="contorno"
-							value="#{licoesAprendidasController.licoes.solucaoContorno}" />
+						<p:inputTextarea id="contorno" maxlength="255" cols="60"
+							label="20"
+							value="#{licoesAprendidasController.licoes.solucaoContorno}"
+							autoResize="true" />
+
 
 						<p:outputLabel value="Solução Raiz:" />
-						<h:inputTextarea id="raiz"
-							value="#{licoesAprendidasController.licoes.solucaoRaiz}" />
+						<p:inputTextarea id="raiz" maxlength="255" cols="60" label="20"
+							value="#{licoesAprendidasController.licoes.solucaoRaiz}"
+							autoResize="true" />
+
 
 						<p:outputLabel value="Número Problema:" />
-						<h:inputText id="numproblema"
+						<p:inputText id="numproblema"
 							value="#{licoesAprendidasController.licoes.numeroProblema}" />
 
 

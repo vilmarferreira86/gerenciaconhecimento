@@ -14,28 +14,19 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idUsuario;
+	private String username;
 
 	private String dataNascimento;
 
 	private String nome;
+	private int matricula;
+	
 
-	//bi-directional many-to-one association to Coordenadoria
-	@ManyToOne
-	@JoinColumn(name="idCoordenadoria")
-	private Coordenadoria coordenadoria;
-
+	
 	public Usuario() {
 	}
 
-	public int getIdUsuario() {
-		return this.idUsuario;
-	}
-
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+	
 
 	public String getDataNascimento() {
 		return this.dataNascimento;
@@ -53,12 +44,6 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public Coordenadoria getCoordenadoria() {
-		return this.coordenadoria;
-	}
 
-	public void setCoordenadoria(Coordenadoria coordenadoria) {
-		this.coordenadoria = coordenadoria;
-	}
 
 }

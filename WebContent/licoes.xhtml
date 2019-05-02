@@ -29,7 +29,7 @@
 								var="s" itemLabel="#{s.nome}" itemValue="#{s}" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Serviço:" />
+						<p:outputLabel value="Tipo de Serviço:" />
 						<p:selectOneMenu value="#{licoesAprendidasController.tpServico}"
 							id="servico" converter="convTipoServico">
 							<f:selectItem itemValue="" itemLabel="Selecione..."
@@ -41,7 +41,7 @@
 								update="tpServico" />
 						</p:selectOneMenu>
 
-						<p:outputLabel value="Tipo de Serviço:" />
+						<p:outputLabel value="Serviço:" />
 						<p:selectOneMenu
 							value="#{licoesAprendidasController.licoes.servico}"
 							id="tpServico" converter="convServico">
@@ -66,14 +66,14 @@
 							value="#{licoesAprendidasController.licoes.numeroIncidente}" />
 
 						<p:outputLabel value="Solução Contorno:" />
-						<p:inputTextarea id="contorno" maxlength="255" cols="60"
+						<p:inputTextarea id="contorno" maxlength="1000" cols="60"
 							label="20"
 							value="#{licoesAprendidasController.licoes.solucaoContorno}"
 							autoResize="true" />
 
 
 						<p:outputLabel value="Solução Raiz:" />
-						<p:inputTextarea id="raiz" maxlength="255" cols="60" label="20"
+						<p:inputTextarea id="raiz" maxlength="1000" cols="60" label="20"
 							value="#{licoesAprendidasController.licoes.solucaoRaiz}"
 							autoResize="true" />
 
@@ -81,6 +81,10 @@
 						<p:outputLabel value="Número Problema:" />
 						<p:inputText id="numproblema"
 							value="#{licoesAprendidasController.licoes.numeroProblema}" />
+							
+							<p:outputLabel value="Data:" />
+						<p:calendar id="data" pattern="dd/MM/yyyy" showOn="button"
+							value="#{licoesAprendidasController.licoes.data}" />
 
 						<p:outputLabel value="Anexo:" for="anexo" />
 						<p:fileUpload id="anexo"
@@ -90,8 +94,8 @@
 
 					</p:panelGrid>
 					<p:commandButton value="Cadastrar"
-						actionListener="#{licoesAprendidasController.adicionar}"
-						update="gridFormulario,dataCoordenadoria" />
+						action="#{licoesAprendidasController.adicionar}"
+						update="gridFormulario,dataCoordenadoria" ajax="true" />
 				</p:panel>
 				<p:messages id="mensagem" autoUpdate="true" />
 				<br />
@@ -118,16 +122,19 @@
 					<p:rowExpansion>
 						<p:panelGrid columns="2">
 							<p:column>
-								<h:outputText value="Anexo:" style="font-weight: bold;"/>
+								<h:outputText value="Anexo:" style="font-weight: bold;" />
 							</p:column>
 							<p:column>
-								<h:commandLink action="#{licoesAprendidasController.anexo()}" value="#{l.anexo}" />
-								
+
+								<p:commandButton value="#{l.anexo}" ajax="false">
+									<p:fileDownload value="#{licoesAprendidasController.anexo(l)}" />
+								</p:commandButton>
+
 							</p:column>
-								
-								
+
+
 						</p:panelGrid>
-					
+
 					</p:rowExpansion>
 
 					<p:column headerText="Sistema" filterBy="#{l.sistema.nome}"
@@ -167,7 +174,7 @@
 						<p:commandButton id="linkEdit" immediate="true"
 							alt="Editar Registro" title="Editar Registro"
 							action="#{licoesAprendidasController.editar}"
-							icon="ui-icon-pencil">
+							icon="ui-icon-pencil" ajax="false">
 							<f:setPropertyActionListener value="#{l}"
 								target="#{licoesAprendidasController.licoes}" />
 						</p:commandButton>
@@ -180,9 +187,18 @@
 								target="#{licoesAprendidasController.licoes}" />
 						</p:commandButton>
 					</p:column>
-					
+
 
 				</p:dataTable>
+
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:graphicImage value="img/ajax-loader.gif" />
+
+				</p:dialog>
 
 			</h:form>
 		</DIV>

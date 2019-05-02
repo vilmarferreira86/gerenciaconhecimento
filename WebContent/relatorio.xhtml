@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Sistema de Controle de Cobranças Banco Amazônia S/A</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+</h:head>
+<h:body>
+
+	<div id="geral">
+		<ui:include src="templates/header.xhtml" />
+
+		<ui:include src="templates/menu.xhtml" />
+		<DIV id="main">
+			<h:form id="formSistema">
+				<p:panel header="Relatorio">
+					<p:panelGrid columns="2" id="gridFrmSistema">
+						<h:outputText value="Sistema:" />
+						<p:selectOneMenu
+							value="#{licoesAprendidasController.licoes.sistema}"
+							converter="convSistema">
+							<f:selectItem itemValue="" itemLabel="Selecione..." />
+							<f:selectItems value="#{licoesAprendidasController.sistemas}"
+								var="s" itemLabel="#{s.nome}" itemValue="#{s}" />
+						</p:selectOneMenu>
+
+
+					</p:panelGrid>
+					<p:commandButton value="Gerar" action="#{relatorioController.pdf}"
+						ajax="false" onclick="this.form.target='_blank';"
+						onsuccess="PF('statusDialog').hide()"
+						oncomplete="PF('statusDialog').hide()" />
+				</p:panel>
+
+				<p:messages id="mensagem" autoUpdate="true" />
+				<br />
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:graphicImage value="img/ajax-loader.gif" />
+
+				</p:dialog>
+			</h:form>
+		</DIV>
+		<ui:include src="templates/footer.xhtml" />
+	</div>
+
+</h:body>
+</html>

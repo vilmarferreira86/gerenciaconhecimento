@@ -25,6 +25,7 @@ import br.ufpa.configuracoes.model.LicoesAprendida;
 import br.ufpa.configuracoes.model.Servico;
 import br.ufpa.configuracoes.model.Sistema;
 import br.ufpa.configuracoes.model.TipoServico;
+import net.bytebuddy.asm.Advice.This;
 
 @ManagedBean
 @SessionScoped
@@ -38,7 +39,8 @@ public class LicoesAprendidasController {
 	private ServicoDao sdao = new ServicoDao();
 	private List<LicoesAprendida> filteredLicoes;
 	private List<LicoesAprendida> todas;
-
+	private StreamedContent anexo;
+	
 	public LicoesAprendidasController() {
 	}
 
@@ -50,7 +52,7 @@ public class LicoesAprendidasController {
 	@SuppressWarnings("unchecked")
 	public void updateComboServico() {
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("servico", tpServico.getIdTipoServico());
+		params.put("servico", this.tpServico.getIdTipoServico());
 		this.services = sdao.getServicoPorTipo(params);
 	}
 
@@ -169,11 +171,20 @@ public class LicoesAprendidasController {
 	
 	
 
+	public StreamedContent getAnexo(LicoesAprendida licoes) {
+		this.anexo = new DefaultStreamedContent(new ByteArrayInputStream(licoes.getAnexo()));
+		return anexo;
+		
+	}
+	
+
 	public StreamedContent getAnexo() {
-		return new DefaultStreamedContent(new ByteArrayInputStream(this.licoes.getAnexo()));
+		return anexo;
 	}
 
-	
+	public void setAnexo(StreamedContent anexo) {
+		this.anexo = anexo;
+	}
 
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
@@ -194,6 +205,10 @@ public class LicoesAprendidasController {
 	public void setTpServico(TipoServico tpServico) {
 		this.tpServico = tpServico;
 	}
+
+	
+
+	
 
 	public List<Servico> getServices() {
 		return services;

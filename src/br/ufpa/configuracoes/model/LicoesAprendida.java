@@ -1,6 +1,7 @@
 package br.ufpa.configuracoes.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -24,10 +25,12 @@ public class LicoesAprendida implements Serializable {
 	private String numeroProblema;
 
 	private String problemaRelatado;
-
+	@Column(columnDefinition = "TEXT", length=1000)
 	private String solucaoContorno;
-
+	@Column(columnDefinition = "TEXT", length=1000)
 	private String solucaoRaiz;
+	@Temporal(TemporalType.DATE)
+	private java.util.Date data;
 
 	//bi-directional many-to-one association to Sistema
 	@ManyToOne
@@ -126,6 +129,17 @@ public class LicoesAprendida implements Serializable {
 
 	public void setAnexo(byte[] anexo) {
 		this.anexo = anexo;
+	}
+	
+	
+
+	
+	public java.util.Date getData() {
+		return data;
+	}
+
+	public void setData(java.util.Date data) {
+		this.data = data;
 	}
 
 	@Override

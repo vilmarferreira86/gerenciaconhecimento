@@ -29,9 +29,7 @@ public class Coordenadoria implements Serializable {
 	@OneToMany(mappedBy="coordenadoria")
 	private List<Sistema> sistemas;
 
-	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="coordenadoria")
-	private List<Usuario> usuarios;
+	
 
 	public Coordenadoria() {
 	}
@@ -98,28 +96,7 @@ public class Coordenadoria implements Serializable {
 		return sistema;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return this.usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-
-	public Usuario addUsuario(Usuario usuario) {
-		getUsuarios().add(usuario);
-		usuario.setCoordenadoria(this);
-
-		return usuario;
-	}
-
-	public Usuario removeUsuario(Usuario usuario) {
-		getUsuarios().remove(usuario);
-		usuario.setCoordenadoria(null);
-
-		return usuario;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
